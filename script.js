@@ -10,8 +10,9 @@ function submitData() {
         },
         body: `data=${encodeURIComponent(inputData)}`,
     })
-    .then(response => response.text())
-    .then(result => {
-        document.getElementById('result').innerText = result;
+    .then(response => response.blob())
+    .then(imgBlob => {
+        const imgUrl = URL.createObjectURL(imgBlob);
+        document.getElementById('result').innerHTML = `<img src="${imgUrl}" alt="Generated Graph">`;
     });
 }

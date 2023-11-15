@@ -3,7 +3,7 @@ function submitData() {
     const inputData = document.getElementById('data').value;
 
     // Send data to the backend (using Fetch API)
-    fetch('https://your-replit-app-name.repl.co/process_data', {
+    fetch('https://replit.com/@404andrewtaylor/mainpy#main.py', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

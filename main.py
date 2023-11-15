@@ -108,8 +108,12 @@ def process_data():
     # Show the plot
     plt.show()
 
+    img_bytes = io.BytesIO()
+    plt.savefig(img_bytes, format='png')
+    img_bytes.seek(0)
+    plt.close()
 
-    return jsonify(result=result)
+    return send_file(img_bytes, mimetype='image/png')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000)

@@ -1,21 +1,23 @@
-# main.py
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, render_template, request, send_file
 import re
-import matplotlib.pyplot as plt
 import io
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 
+def extract_numerical_values(input_text):
+    # Use regex to find all numeric sequences, allowing for various separators
+    numerical_values = re.findall(r'\b\d+(?:\.\d+)?\b', input_text.replace('\n', ' '))
+    numerical_list = [float(value) for value in numerical_values]
+    return numerical_list
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/process_data', methods=['POST'])
 def process_data():
-    data = request.form.get('data')
-
-def extract_numerical_values(input_text):
-    numerical_values = re.findall(r'\b\d+\b', input_text)
-    numerical_list = [int(value) for value in numerical_values]
-    return numerical_list
-
+    data = request.form['input_data']
 
     percentages = extract_numerical_values(data)
 
@@ -71,9 +73,10 @@ def extract_numerical_values(input_text):
     img_bytes.seek(0)
     plt.close()
 
-    # Return the image file
     return send_file(img_bytes, mimetype='image/png')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3000)
+    app.run(debug=True)
+
+
 

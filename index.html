@@ -1,19 +1,45 @@
-<!-- index.html -->
+<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Input Form</title>
+    <title>Grade Distribution</title>
+
+    <style>
+        body {
+            background-color: #02ccfe; /* Set the background color */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            text-align: center;
+            background-color: #ffffff; /* Set the form background color */
+            padding: 70px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+        }
+
+        input {
+            margin: 10px 0;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
-    <form id="dataForm">
-        <label for="data">Paste Data:</label>
-        <textarea id="data" rows="100" cols="1"></textarea>
-        <button type="button" onclick="submitData()">Submit</button>
+    <form action="/process_data" method="post">
+        <label for="input_data">Enter numerical values:</label>
+        <br>
+        <input type="text" name="input_data" id="input_data" required>
+        <br>
+        <input type="submit" value="Submit">
     </form>
-    <div id="result"></div>
-
-    <script src="script.js"></script>
 </body>
 </html>

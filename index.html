@@ -6,7 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grade Distribution</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initially disable the table
+            $('#customTable :input').prop('disabled', true);
 
+            // Enable/disable the table based on radio button selection
+            $('input[name="grading_option"]').change(function () {
+                if ($(this).val() === 'custom') {
+                    $('#customTable :input').prop('disabled', false);
+                } else {
+                    $('#customTable :input').prop('disabled', true);
+                }
+            });
+        });
+    </script>
     <style>
         body {
             background-color: #02ccfe;
@@ -65,6 +80,16 @@
             background-color: #008000;
         }
 
+        textarea {
+            margin: 10px 0;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 80%; /* Take up the full width of the container */
+            height: 200px; /* Adjust the height as needed */
+            box-sizing: border-box; /* Include padding and border in the total width */
+        }
+
         /* Add a media query for smaller screens */
         @media (max-width: 600px) {
             form {
@@ -75,17 +100,35 @@
         display: none;
         }
     </style>
+
+
+
+
 </head>
 <body>
     <form action="/process_data" method="post">
         <div>
             <label for="input_data">Enter Data (type or paste from excel, with or without % symbols):</label>
+            <br>
             <textarea id="input_data" name="input_data" required></textarea>
         </div>
+        <div>
+            <label style="display: inline-block; margin-right: 10px;">
+                <input type="radio" name="grading_option" value="default" checked> Default TWU Scale
+            </label>
+
+            <label style="display: inline-block; margin-right: 10px;">
+                <input type="radio" name="grading_option" value="CHEM198"> CHEM 198 Scale
+            </label>
+
+            <label style="display: inline-block;">
+                <input type="radio" name="grading_option" value="custom" id="customScale"> Custom Scale
+            </label>
+        </div>
         <button type="submit">Submit</button>
-        <table>
+        <table id="customTable">
             <tr>
-                <td colspan="3">Note: This feature is currently not functional. The plot will default to CHEM 198 grading scheme. New features coming soon!</td>
+                <td colspan="3">Enter your custom grade ranges here:</td>
             </tr>
             <tr>
                 <th>Grade</th>
@@ -103,7 +146,17 @@
         </table>
         </div>
 
+
+
     </form>
 
+
+
+
+
+
+
 </body>
+
+
 </html>
